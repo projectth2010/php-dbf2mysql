@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456!'
+      MYSQL_DATABASE: 'dbf2mysql'
+    ports:
+      - '3306:3306'
+  php:
+    image: 'php:7.4-apache'
+    volumes:
+      - ./html:/var/www/html
+    depends_on:
+      - mysql
+    ports:
+      - '8080:80'
+    links:
+      - mysql
